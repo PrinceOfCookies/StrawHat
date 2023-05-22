@@ -1,0 +1,510 @@
+{
+  "Pistols": {
+    "HK USP": {
+      "Damage": 30,
+      "Rarity": "Common",
+      "Fire Type": "Semi-Automatic",
+      "Fire Rate": 0.1,
+      "Magazine Size": 12,
+      "Reload Time": 2.5,
+      "Ammo Type": "9mm",
+      "Ammo Capacity": 120,
+      "Starting Ammo": 12,
+      "Accuracy": 0.8,
+      "Recoil": 0.8,
+      "Silcence": 0.5,
+      "Range": 100,
+      "Weight": 1.5,
+      "Price": 500,
+      "Possible Attachments": {
+        "Suppressor": {
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Extended Magazine": {
+          "Magazine Size": 16,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Laser Sight": {
+          "Accuracy": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Grip": {
+          "Recoil": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Silencer": {
+          "Silence": -0.2,
+          "Weight": 0.5,
+          "Price": 100
+        }
+      }
+    },
+    "Glock 17": {
+      "Damage": 30,
+      "Rarity": "Common",
+      "Fire Type": "Semi-Automatic",
+      "Fire Rate": 0.1,
+      "Magazine Size": 17,
+      "Reload Time": 2.5,
+      "Ammo Type": "9mm",
+      "Ammo Capacity": 170,
+      "Starting Ammo": 17,
+      "Accuracy": 0.8,
+      "Recoil": 0.8,
+      "Silcence": 0.5,
+      "Range": 100,
+      "Weight": 1.5,
+      "Price": 500,
+      "Possible Attachments": {
+        "Suppressor": {
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Extended Magazine": {
+          "Magazine Size": 21,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Laser Sight": {
+          "Accuracy": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Grip": {
+          "Recoil": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Silencer": {
+          "Silence": -0.2,
+          "Weight": 0.5,
+          "Price": 100
+        }
+      }
+    },
+    "Desert Eagle": {
+      "Damage": 50,
+      "Rarity": "Rare",
+      "Fire Type": "Semi-Automatic",
+      "Fire Rate": 0.2,
+      "Magazine Size": 7,
+      "Reload Time": 2.5,
+      "Ammo Type": ".50 AE",
+      "Ammo Capacity": 70,
+      "Starting Ammo": 7,
+      "Accuracy": 0.8,
+      "Recoil": 0.8,
+      "Silcence": 0.8,
+      "Range": 100,
+      "Weight": 1.5,
+      "Price": 500,
+      "Possible Attachments": {
+        "Suppressor": {
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Extended Magazine": {
+          "Magazine Size": 9,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Laser Sight": {
+          "Accuracy": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Grip": {
+          "Recoil": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Silencer": {
+          "Silence": -0.3,
+          "Weight": 0.5,
+          "Price": 100
+        }
+      }
+    },
+    "M1911": {
+      "Damage": 30,
+      "Rarity": "Common",
+      "Fire Type": "Semi-Automatic",
+      "Fire Rate": 0.1,
+      "Magazine Size": 7,
+      "Reload Time": 2.5,
+      "Ammo Type": ".45 ACP",
+      "Ammo Capacity": 70,
+      "Starting Ammo": 7,
+      "Accuracy": 0.8,
+      "Recoil": 0.8,
+      "Silcence": 0.5,
+      "Range": 100,
+      "Weight": 1.5,
+      "Price": 500,
+      "Possible Attachments": {
+        "Suppressor": {
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Extended Magazine": {
+          "Magazine Size": 9,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Laser Sight": {
+          "Accuracy": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Grip": {
+          "Recoil": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Silencer": {
+          "Silence": -0.2,
+          "Weight": 0.5,
+          "Price": 100
+        }
+      }
+    },
+    "M9": {
+      "Damage": 30,
+      "Rarity": "Common",
+      "Fire Type": "Semi-Automatic",
+      "Fire Rate": 0.1,
+      "Magazine Size": 15,
+      "Reload Time": 2.5,
+      "Ammo Type": "9mm",
+      "Ammo Capacity": 150,
+      "Starting Ammo": 15,
+      "Accuracy": 0.8,
+      "Recoil": 0.8,
+      "Range": 100,
+      "Weight": 1.5,
+      "Price": 500,
+      "Possible Attachments": {
+        "Suppressor": {
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Extended Magazine": {
+          "Magazine Size": 19,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Laser Sight": {
+          "Accuracy": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Grip": {
+          "Recoil": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        }
+      }
+    }
+  },
+  "Shotguns": {
+    "USAS": {
+      "Damage": 50,
+      "Rarity": "Legendary",
+      "Fire Type": "Full-Auto",
+      "Fire Rate": 1,
+      "Magazine Size": 8,
+      "Reload Time": 2.5,
+      "Ammo Type": "12 Gauge",
+      "Ammo Capacity": 80,
+      "Starting Ammo": 8,
+      "Accuracy": 0.8,
+      "Recoil": 0.8,
+      "Range": 100,
+      "Weight": 1.5,
+      "Price": 500,
+      "Possible Attachments": {
+        "Suppressor": {
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Extended Magazine": {
+          "Magazine Size": 10,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Laser Sight": {
+          "Accuracy": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Grip": {
+          "Recoil": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        }
+      }
+    },
+    "Double Barrel": {
+      "Damage": 100,
+      "Rarity": "Rare",
+      "Fire Type": "Semi-Automatic",
+      "Fire Rate": 0.5,
+      "Magazine Size": 2,
+      "Reload Time": 2.5,
+      "Ammo Type": "12 Gauge",
+      "Ammo Capacity": 20,
+      "Starting Ammo": 2,
+      "Accuracy": 0.8,
+      "Recoil": 0.8,
+      "Range": 100,
+      "Weight": 1.5,
+      "Price": 500,
+      "Possible Attachments": {
+        "Suppressor": {
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Extended Magazine": {
+          "Magazine Size": 3,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Laser Sight": {
+          "Accuracy": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Grip": {
+          "Recoil": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        }
+      }
+    }
+  },
+  "Snipers": {
+    "Barret M82": {
+      "Damage": 100,
+      "Rarity": "Uncommon",
+      "Fire Type": "Semi-Automatic",
+      "Fire Rate": 0.5,
+      "Magazine Size": 5,
+      "Reload Time": 2.5,
+      "Ammo Type": ".50 BMG",
+      "Ammo Capacity": 50,
+      "Starting Ammo": 5,
+      "Accuracy": 0.8,
+      "Recoil": 0.8,
+      "Silcence": 0.8,
+      "Range": 100,
+      "Weight": 1.5,
+      "Price": 500,
+      "Possible Attachments": {
+        "Suppressor": {
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Extended Magazine": {
+          "Magazine Size": 7,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Laser Sight": {
+          "Accuracy": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Grip": {
+          "Recoil": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Silencer": {
+          "Weight": 0.5,
+          "Silence": -0.3,
+          "Price": 100
+        }
+      }
+    },
+    "PSG-1": {
+      "Damage": 50,
+      "Rarity": "Rare",
+      "Fire Type": "Semi-Automatic",
+      "Fire Rate": 0.5,
+      "Magazine Size": 10,
+      "Reload Time": 2.5,
+      "Ammo Type": "7.62mm",
+      "Ammo Capacity": 100,
+      "Starting Ammo": 10,
+      "Accuracy": 0.8,
+      "Recoil": 0.8,
+      "Silcence": 0.8,
+      "Range": 100,
+      "Weight": 1.5,
+      "Price": 500,
+      "Possible Attachments": {
+        "Suppressor": {
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Extended Magazine": {
+          "Magazine Size": 12,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Laser Sight": {
+          "Accuracy": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Grip": {
+          "Recoil": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Silencer": {
+          "Weight": 0.5,
+          "Silence": -0.3,
+          "Price": 100
+        }
+      }
+    }
+  },
+  "Assault Rifles": {
+    "M4A1": {
+      "Damage": 50,
+      "Rarity": "Common",
+      "Fire Type": "Full-Auto",
+      "Fire Rate": 3,
+      "Magazine Size": 30,
+      "Reload Time": 2.5,
+      "Ammo Type": "5.56mm",
+      "Ammo Capacity": 300,
+      "Starting Ammo": 30,
+      "Accuracy": 0.8,
+      "Recoil": 0.8,
+      "Silcence": 0.7,
+      "Range": 100,
+      "Weight": 1.5,
+      "Price": 500,
+      "Possible Attachments": {
+        "Suppressor": {
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Extended Magazine": {
+          "Magazine Size": 40,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Laser Sight": {
+          "Accuracy": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Grip": {
+          "Recoil": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Silencer": {
+          "Weight": 0.5,
+          "Silence": -0.3,
+          "Price": 100
+        }
+      }
+    }
+  },
+  "Sub Machine Gun": {
+    "UMP45": {
+      "Damage": 50,
+      "Rarity": "Common",
+      "Fire Type": "Full-Auto",
+      "Fire Rate": 3,
+      "Magazine Size": 25,
+      "Reload Time": 2.5,
+      "Ammo Type": "9mm",
+      "Ammo Capacity": 250,
+      "Starting Ammo": 25,
+      "Accuracy": 0.8,
+      "Recoil": 0.8,
+      "Silcence": 0.7,
+      "Range": 100,
+      "Weight": 1.5,
+      "Price": 500,
+      "Possible Attachments": {
+        "Suppressor": {
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Extended Magazine": {
+          "Magazine Size": 35,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Laser Sight": {
+          "Accuracy": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Grip": {
+          "Recoil": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Silencer": {
+          "Weight": 0.5,
+          "Silence": -0.3,
+          "Price": 100
+        }
+      }
+    },
+    "Honey Badger": {
+      "Damage": 50,
+      "Rarity": "Common",
+      "Fire Type": "Full-Auto",
+      "Fire Rate": 3,
+      "Magazine Size": 25,
+      "Reload Time": 2.5,
+      "Ammo Type": "9mm",
+      "Ammo Capacity": 250,
+      "Starting Ammo": 25,
+      "Accuracy": 0.8,
+      "Recoil": 0.8,
+      "Silcence": 0.7,
+      "Range": 100,
+      "Weight": 1.5,
+      "Price": 500,
+      "Possible Attachments": {
+        "Suppressor": {
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Extended Magazine": {
+          "Magazine Size": 35,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Laser Sight": {
+          "Accuracy": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Grip": {
+          "Recoil": 0.1,
+          "Weight": 0.5,
+          "Price": 100
+        },
+        "Silencer": {
+          "Weight": 0.5,
+          "Silence": -0.3,
+          "Price": 100
+        }
+      }
+    }
+  }
+}

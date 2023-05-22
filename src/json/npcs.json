@@ -1,0 +1,74 @@
+{
+    "Normal": {
+        "NPC1": {
+            "Gun": "M4A1",
+            "HP": 100,
+            "Armor": 0,
+            "Speed": 2
+        },
+        "NPC2": {
+            "Gun": "HK USP",
+            "HP": 100,
+            "Armor": 0,
+            "Speed": 3
+        },
+        "NPC3": {
+            "Gun": "Double Barrel",
+            "HP": 100,
+            "Armor": 0,
+            "Speed": 1
+        },
+        "NPC4": {
+            "Gun": "Desert Eagle",
+            "HP": 100,
+            "Armor": 0,
+            "Speed": 2
+        },
+        "NPC5": {
+            "Gun": "UMP45",
+            "HP": 100,
+            "Armor": 0,
+            "Speed": 3
+        }
+    },
+    "Sub Bosses": {
+        "Sub-Boss 1": {
+            "Gun": "M4A1",
+            "HP": 300,
+            "Armor": 100,
+            "Speed": 3
+        },
+        "Sub-Boss 2": {
+            "Gun": "HK USP",
+            "HP": 300,
+            "Armor": 100,
+            "Speed": 4
+        },
+        "Sub-Boss 3": {
+            "Gun": "Double Barrel",
+            "HP": 300,
+            "Armor": 100,
+            "Speed": 2
+        },
+        "Sub-Boss 4": {
+            "Gun": "Desert Eagle",
+            "HP": 300,
+            "Armor": 100,
+            "Speed": 3
+        },
+        "Sub-Boss 5": {
+            "Gun": "UMP45",
+            "HP": 300,
+            "Armor": 100,
+            "Speed": 4
+        }
+    },
+    "Boss": {
+        "Boss1": {
+            "Gun": "USAS",
+            "HP": 1000,
+            "Armor": 200,
+            "Speed": 4
+        }
+    }
+}
