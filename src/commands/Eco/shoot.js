@@ -66,7 +66,7 @@ module.exports = {
       setCooldown(5);
     }
 
-    if (Selfshot) {
+    if (Selfshot && !Miss) {
       interaction.reply({
         content: `Your gun backfired and you shot yourself! (You died) (haha, loser)`,
       });
@@ -77,7 +77,7 @@ module.exports = {
       client.logdeath(interaction.user, interaction.user, "Gun", channel);
     }
 
-    if (ded) {
+    if (ded && !Miss && !Selfshot) {
       interaction.reply({
         content: `You shot ${vic.username} and killed them!`,
         ephemeral: true,
