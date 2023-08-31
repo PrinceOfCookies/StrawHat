@@ -43,13 +43,13 @@ module.exports = {
     // Check if the attack is on cooldown for shoot
     if (Atk_Profile.cooldowns.shoot > Math.floor(Date.now() / 1000)) {
       interaction.reply({
-        content: `You are on cooldown for shoot! Please wait <t:${Atk_Profile.cooldowns.shoot}
-        }:R> seconds!`,
+        content: `You are on cooldown for shoot! Please wait <t:${Atk_Profile.cooldowns.shoot}:R> seconds!`,
       });
       return;
     }
 
     async function setCooldown(additional) {
+      sleep(1)
       additional = additional >= 0 ? additional : 0;
       await Atk_Profile.updateOne({
         cooldowns: { shoot: Math.floor(Date.now() / 1000) + (30 + additional) },
