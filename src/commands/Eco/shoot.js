@@ -49,7 +49,6 @@ module.exports = {
     }
 
     async function setCooldown(additional) {
-      sleep(1)
       additional = additional >= 0 ? additional : 0;
       await Atk_Profile.updateOne({
         cooldowns: { shoot: Math.floor(Date.now() / 1000) + (30 + additional) },
