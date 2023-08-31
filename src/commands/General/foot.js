@@ -14,6 +14,7 @@ module.exports = {
       return;
     }
 
+    const { channel } = interaction;
 
     // Adds a monkey emoji, arrow pointing left, and spells out foot with reactions on the message above where the person did the command
     interaction.channel.messages.fetch({ limit: 1 }).then((messages) => {
@@ -30,10 +31,6 @@ module.exports = {
       ephemeral: true,
     });
 
-    client.channels.cache
-      .get("1013569553353150556")
-      .send(
-        `${interaction.user.tag} used the foot command in <#${interaction.channel.id}>`
-      );
+    client.commandDone(interaction.user, "foot", channel);
   },
 };

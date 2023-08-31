@@ -22,12 +22,13 @@ module.exports = {
       return;
     }
 
+    const { channel } = interaction;
 
     const emojis = {
       general: "💬",
       admin: "🦢",
       friends: "🤼",
-      other: "🛠",
+      rammstein: "🛠",
     };
 
     const folders = [
@@ -120,10 +121,6 @@ module.exports = {
       firstMessage.edit({ components: components(true) });
     });
 
-    client.channels.cache
-      .get("1013569553353150556")
-      .send(
-        `${interaction.user.tag} used the help command in <#${interaction.channel.id}>`
-      );
+    client.commandDone(interaction.user, "help", channel);
   },
 };

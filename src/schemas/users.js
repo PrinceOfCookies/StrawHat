@@ -4,20 +4,35 @@ const userSchema = new Schema({
   _id: Schema.Types.ObjectId,
   userID: String,
   createdAt: Number,
-  Balance: {
+  balance: {
     default: 5,
+    type: Number,
+  },
+  hp: {
+    default: 100,
     type: Number,
   },
   cooldowns: {
     default: {
-      "beg": Date.now(),
-      "daily": Date.now(),
-      "slots": Date.now(),
-      "work": Date.now(),
-      "fish": Date.now(),
-      "steal": Date.now(),
+      shoot: 0,
     },
     type: Object,
+  },
+  deathCount: {
+    default: 0,
+    type: Number,
+  },
+  deaths: {
+    default: [],
+    type: Array,
+  },
+  killCount: {
+    default: 0,
+    type: Number,
+  },
+  kills: {
+    default: [],
+    type: Array,
   },
   BotBanned: {
     default: false,

@@ -17,14 +17,13 @@ module.exports = {
     ),
 
   async execute(interaction, client) {
-    const { options } = interaction;
+    const { channel, options } = interaction;
 
     const tag_name = options.getString("tagname");
     const tag_content = options.getString("tagcontent");
     let TagSchem = await TagSchema.findOne({
       tagName: options.getString("tagname"),
     });
-
 
     // Wait TILL THIS CHECK ID DONE TO CONTINUE
     const Profile = await client.checkProfile(interaction.user);
@@ -37,14 +36,13 @@ module.exports = {
       return;
     }
 
-
     if (
-      interaction.member.roles.cache.has("994262105568059502") ||
-      interaction.member.roles.cache.has("994261958641598534")
+      interaction.member.roles.cache.has("1120733358784266302") ||
+      interaction.member.roles.cache.has("1120733358759088236")
     ) {
       if (TagSchem) {
         interaction.reply({
-          content: `A tag with the name ${tag_name} already exists, it was made by <@${TagSchem.createdBy}> on !`,
+          content: `A tag with the name ${tag_name} already exists, it was made by <@${TagSchem.createdBy}> on!`,
         });
         return;
       } else {
@@ -64,12 +62,17 @@ module.exports = {
         content:
           'Sorry, You dont have the "Friends" role or the "Moderation" role so you cant do this command!',
       });
-      return
+      return;
     }
 
     await TagSchem.save().catch(console.error);
     await Profile.save().catch(console.error);
 
-    client.channels.cache.get("1013569553353150556").send(`${interaction.user.tag} used the tagcreate command, and made a tag with the name \`${tag_name}\``)
+    client.commandDone(
+      interaction.user,
+      "tagcreate",
+      channel,
+      tag_name + " | " + tag_content
+    );
   },
 };

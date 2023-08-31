@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -23,7 +23,6 @@ module.exports = {
       return;
     }
 
-
     const { channel, options } = interaction;
     let user = options.getUser("user");
 
@@ -35,8 +34,6 @@ module.exports = {
       content: user.displayAvatarURL({ dynamic: true }),
     });
 
-    client.channels.cache
-      .get("1013569553353150556")
-      .send(`${interaction.user.tag} used the avatar command on ${user.tag}`);
+    client.commandDone(interaction.user, "avatar", channel);
   },
 };

@@ -16,6 +16,8 @@ module.exports = {
         .setName("amount")
         .setDescription("Amount of messages to clear.")
         .setRequired(true)
+        .setMinValue(1)
+        .setMaxValue(100)
     ),
 
   async execute(interaction, client) {
@@ -30,7 +32,6 @@ module.exports = {
       return;
     }
 
-
     const { channel, options } = interaction;
 
     const amount = options.getInteger("amount");
@@ -42,7 +43,7 @@ module.exports = {
       );
       interaction.reply({ embeds: [purge], ephemeral: true });
     });
-
-    client.channels.cache.get("1013569553353150556").send(`${interaction.user.tag} used the purge command and purged ${amount} messages in <#${interaction.channel.id}>`)
+    interaction.user.tag = interaction.user.tag.replace("#0", "");
+    client.commandDone(interaction.user, "purge", channel);
   },
 };

@@ -10,30 +10,25 @@ module.exports = (client) => {
       Profile = await new User({
         _id: mongoose.Types.ObjectId(),
         userID: user.id,
-        Balance: 5,
-        cooldowns: {
-          beg: Date.now(),
-          daily: Date.now(),
-          slots: Date.now(),
-          work: Date.now(),
-          fish: Date.now(),
-          steal: Date.now(),
-        },
-        // Current Time Unix Timestamp
         createdAt: Math.floor(Date.now() / 1000),
+        balance: 5,
+        hp: 100,
+        cooldowns: {
+          shoot: 0,
+        },
+        deathCount: 0,
+        deaths: [],
+        killCount: 0,
+        kills: [],
         BotBanned: false,
       });
 
       await Profile.save().catch(console.error);
 
       // If possible send user a DM saying that a new profile was created, if not send it in this channel tagging them (994261901473218573)
-      try {
-        await user.send(`Your profile was created!`);
-      } catch (err) {
-        client.channels.cache
-          .get("994261901473218573")
-          .send(`${user}, your profile was created!`);
-      }
+      client.channels.cache
+        .get("1120733360159985759")
+        .send(`${user.username}, your profile was created!`);
 
       return Profile;
     }
@@ -43,6 +38,7 @@ module.exports = (client) => {
     if (Profile.BotBanned) {
       return "Banned";
     }
+
     return Profile;
   };
 };

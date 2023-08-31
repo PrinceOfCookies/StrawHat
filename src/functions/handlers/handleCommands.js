@@ -22,11 +22,12 @@ module.exports = (client) => {
 
       const { commands, commandArray } = client;
       for (const file of commandFiles) {
+        let commandSTime = Math.floor(Date.now());
         const command = require(`../../commands/${folder}/${file}`);
         const properties = { folder, ...command }; //add that line for the help command
         commands.set(command.data.name, properties); //line 19 or something like that, edit command > properties
         commandArray.push(command.data.toJSON());
-        console.log(chalk.blue(`Command: ${chalk.yellow(command.data.name)} has been made`));
+        console.log(chalk.blue(`Command: ${chalk.yellow(command.data.name)} took ${chalk.yellow(Math.floor(Date.now()) - commandSTime)}ms to load`));
       };
     }
 

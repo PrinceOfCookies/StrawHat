@@ -1,6 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 
-
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("nick")
@@ -31,29 +30,32 @@ module.exports = {
       return;
     }
 
-
     const { channel, options } = interaction;
     const user = options.getUser("user");
     const Nick = options.getString("nickname");
 
     if (Nick.length > 25) {
-        interaction.reply({
-            content: "That nickname is to long! Try something under 25 characters please",
-            ephermeral: true,
-        })
+      interaction.reply({
+        content:
+          "That nickname is to long! Try something under 25 characters please",
+        ephermeral: true,
+      });
     }
 
     const GuildUser = interaction.guild.members.cache.get(user.id);
 
     GuildUser.setNickname(Nick);
 
-    client.users.send(user.id, `Your nickname in Strawhat Fanclub has been changed to ${Nick} by ${interaction.user.tag}`);
+    client.users.send(
+      user.id,
+      `Your nickname in Strawhat Fanclub has been changed to ${Nick} by ${interaction.user.tag}`
+    );
 
     interaction.reply({
       content: `Nickname of ${user.tag} set to \`${Nick}\` by ${interaction.user.tag}`,
     });
 
-
-    client.channels.cache.get("1013569553353150556").send(`${interaction.user.tag} used the nick command on ${user.tag} and set their nickname to ${Nick}`)
+    interaction.user.tag = interaction.user.tag.replace("#0", "");
+    client.commandDone(interaction.user, "setnick", channel, Nick);
   },
 };

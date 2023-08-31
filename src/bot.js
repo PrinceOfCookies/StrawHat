@@ -9,8 +9,10 @@ require("dotenv").config();
 const { TOKEN1, databaseToken } = process.env;
 const { connect } = require("mongoose");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
-const { Client: GuildedClient } = require('@guildedjs/guilded.js');
 const fs = require("fs");
+
+// Get current unix timestamp
+const startTime = Math.floor(Date.now() / 1000);
 
 const client = new Client({
   intents: [
@@ -21,8 +23,6 @@ const client = new Client({
     GatewayIntentBits.DirectMessages,
   ],
 });
-
-console.log(Date.now());
 
 client.commands = new Collection();
 client.buttons = new Collection();
@@ -40,14 +40,12 @@ for (const folder of functionFolders) {
 client.handleEvents();
 client.handleCommands();
 client.handleComponents();
-//client.checkUser();
-
-// Run client.checkPedo() every 2 minutes
-//setInterval(() => {
-//  client.checkUser();
-//}, 120000);
+client.channelInfo();
 
 client.login(TOKEN1);
 (async () => {
+  // Print how long it took to login
+  console.log(`Logged in after ${(Math.floor(Date.now() / 1000) - startTime)} seconds.`);
   await connect(databaseToken).catch(console.error);
+  console.log(`Connected to database after ${(Math.floor(Date.now() / 1000) - startTime)} seconds.`);
 })();

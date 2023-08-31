@@ -16,6 +16,7 @@ module.exports = {
       return;
     }
 
+    const { channel } = interaction;
     // Give everyone who does this command this role (1098050551071133757) if they dont already have it
     const role = interaction.guild.roles.cache.get("1098050551071133757");
 
@@ -31,10 +32,6 @@ module.exports = {
       });
     }
 
-    client.channels.cache
-      .get("1013569553353150556")
-      .send(
-        `${interaction.user.tag} used the notify command in <#${interaction.channel.id}>`
-      );
+    client.commandDone(interaction.user, "notify", channel);
   },
 };

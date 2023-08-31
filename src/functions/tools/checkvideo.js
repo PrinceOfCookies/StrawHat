@@ -17,13 +17,18 @@ module.exports = (client) => {
     if (jsonData.id !== data.items[0].id) {
       // New video or video not sent
 
-      const { title, link, id, author } = data.items[0]
+      const { title, link, id, author } = data.items[0];
 
       fs.writeFileSync(
         `${__dirname}/../../json/checkvideo.json`,
-        JSON.stringify({ id: id, title: title, link: link, author: author, url: `https://img.youtube.com/vi/${id.slice(9)}/maxresdefault.jpg`})
+        JSON.stringify({
+          id: id,
+          title: title,
+          link: link,
+          author: author,
+          url: `https://img.youtube.com/vi/${id.slice(9)}/maxresdefault.jpg`,
+        })
       );
-
     }
   };
 };

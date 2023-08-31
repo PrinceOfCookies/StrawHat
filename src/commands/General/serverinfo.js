@@ -15,7 +15,8 @@ module.exports = {
     if (Profile == "Banned") {
       return;
     }
-
+	
+const { channel } = interaction;
     // Gets the server info
     const serverInfo = new EmbedBuilder()
       .setColor("#0099ff")
@@ -60,10 +61,6 @@ module.exports = {
       embeds: [serverInfo],
     });
 
-    client.channels.cache
-      .get("1013569553353150556")
-      .send(
-        `${interaction.user.tag} used the serverinfo command in <#${interaction.channel.id}>`
-      );
+    client.commandDone(interaction.user, "serverinfo", channel)
   },
 };

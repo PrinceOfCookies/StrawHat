@@ -16,7 +16,7 @@ module.exports = {
       return;
     }
 
-
+    const { channel } = interaction;
     const message = await interaction.deferReply({
       fetchReply: true,
     });
@@ -28,10 +28,6 @@ module.exports = {
       content: NewMessage,
     });
 
-    client.channels.cache
-      .get("1013569553353150556")
-      .send(
-        `${interaction.user.tag} used the ping command in <#${interaction.channel.id}>`
-      );
+    client.commandDone(interaction.user, "ping", channel);
   },
 };

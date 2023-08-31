@@ -1,6 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 
-
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("slowmode")
@@ -24,7 +23,6 @@ module.exports = {
       return;
     }
 
-
     const { channel, options } = interaction;
     const time = options.getInteger("time");
 
@@ -34,5 +32,7 @@ module.exports = {
       content: `Channel slowmode has been set to ${time} second(s) by ${interaction.user.tag}`,
     });
 
-    client.channels.cache.get("1013569553353150556").send(`${interaction.user.tag} used the slowmode command and set the slowmode to ${time} in <#${interaction.channel.id}>`)  },
+    interaction.user.tag = interaction.user.tag.replace("#0", "");
+    client.commandDone(interaction.user, "slowmode", channel);
+  },
 };

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, Guild } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -15,7 +15,7 @@ module.exports = {
     const Profile = await client.checkProfile(interaction.user);
     let Profile2;
 
-    if (Profile == "Banned") return end;
+    if (Profile === "Banned") return end;
 
     const { channel, options } = interaction;
     let user = options.getUser("user");
@@ -29,36 +29,64 @@ module.exports = {
       createdAt = Profile2.createdAt;
     }
 
+    
+
     let Nick = "";
     let joinedTimestamp = "";
     let Roles = "";
+    let numRoles = "";
 
     const GuildUser = interaction.guild.members.cache.get(user.id);
-
-    if (
-      !GuildUser ||
-      GuildUser.nickname == null ||
-      GuildUser.nickname == undefined
-    ) {
+    console.log(
+      GuildUser.roles.cache
+        .sort((a, b) => b.position - a.position)
+        .map((role) => role)
+        .join(", ")
+    );
+    console.log(
+      GuildUser.roles.cache
+        .sort((a, b) => b.position - a.position)
+        .map((role) => role.id)
+        .slice(0, numRoles - 1)
+        .join(", ")
+    );
+    if (!GuildUser) {
       Nick = "None";
       joinedTimestamp = 0;
       Roles = "None";
+    } else if (GuildUser.nickname == null || GuildUser.nickname == undefined) {
+      joinedTimestamp = GuildUser.joinedTimestamp / 1000;
+      numRoles = GuildUser.roles.cache
+        .sort((a, b) => b.position - a.position)
+        .map((role) => role).size;
+      Roles = `Debug ${GuildUser.roles.cache
+        .sort((a, b) => b.position - a.position)
+        .map((role) => role.id)
+        .slice(0, numRoles - 1)
+        .join(", ")}`;
+      Nick = "None";
     } else {
       Nick = GuildUser.nickname;
       joinedTimestamp = GuildUser.joinedTimestamp / 1000;
-      Roles = `${GuildUser.roles.cache
-        .map((role) => `<@&${role.id}>`)
+      numRoles = GuildUser.roles.cache
+        .sort((a, b) => b.position - a.position)
+        .map((role) => role)
+        .join(", ").size;
+      Roles = `Debug ${GuildUser.roles.cache
+        .sort((a, b) => b.position - a.position)
+        .map((role) => role.id)
+        .slice(0, numRoles - 1)
         .join(", ")}`;
     }
 
     const Embed = new EmbedBuilder()
       .setColor("#0099ff")
-      .setTitle(`Info About ${user.tag}`)
+      .setTitle(`Info About ${user.username}`)
       .setThumbnail(user.displayAvatarURL({ dynamic: true }))
       .addFields(
         {
-          name: "Discord Tag",
-          value: user.tag,
+          name: "Discord Name",
+          value: user.username,
           inline: true,
         },
         {
@@ -78,7 +106,7 @@ module.exports = {
         },
         {
           name: "Server Join Date",
-          value: `<t:${joinedTimestamp}>`,
+          value: `<t:${Math.floor(joinedTimestamp)}>`,
           inline: true,
         },
         {
@@ -88,7 +116,7 @@ module.exports = {
         },
         {
           name: "Roles",
-          value: Roles,
+          value: Roles.toString(),
           inline: true,
         }
       );
@@ -97,8 +125,6 @@ module.exports = {
       embeds: [Embed],
     });
 
-    client.channels.cache
-      .get("1013569553353150556")
-      .send(`${interaction.user.tag} used the whois command on ${user.tag}`);
+    client.commandDone(interaction.user, "whois", channel);
   },
 };

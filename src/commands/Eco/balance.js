@@ -26,25 +26,14 @@ module.exports = {
 
     const user = await options.getUser("user");
 
-    let Balance = 0;
+    const ruser = !user ? interaction.user : user;
 
-    if (user) {
-      let Balance = await client.checkBalance(user);
-      await interaction.reply({
-        content: `${user.tag} has ${Balance} coins`,
-      });
-    } else {
-      let Balance = await client.checkBalance(interaction.user);
-      await interaction.reply({
-        content: `You have ${Balance} coins`,
-      });
-    }
+    let Balance = await client.checkBalance(ruser);
+    await interaction.reply({
+      content: `${user.username} has ${Balance} coins`,
+    });
 
     // Log the command usage
-    client.channels.cache
-      .get("1013569553353150556")
-      .send(
-        `${interaction.user.tag} used the balance command in <#${interaction.channel.id}>`
-      );
+    client.commandDone(interaction.user, "balance", channel, user.username);
   },
 };

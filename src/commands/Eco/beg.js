@@ -8,30 +8,16 @@ module.exports = {
     // Wait TILL THIS CHECK ID DONE TO CONTINUE
     const Profile = await client.checkProfile(interaction.user);
 
-    // Wait to continue till we get profile back
-    await Profile;
-
     // If the user is banned, end the command
     if (Profile == "Banned") {
       return;
     }
 
-    // Check if the user is on cooldown for this command
-    const Passed = await client.checkCooldown(interaction.user, "beg");
+    const { channel } = interaction;
 
-    console.log("Time Left" + Passed);
+    const Bal = await client.checkBalance(interaction.user);
 
-    if (!Passed) {
-      return interaction.reply({
-        content: `You are on cooldown for this command, please wait ${Passed} seconds before using this command again`,
-        ephemeral: true,
-      });
-    }
-
-    // Set Cooldown for user
-    client.setCooldown(interaction.user, "beg", 300);
-
-    const Bal = Profile.Balance;
+    let randomMoney = Math.floor(Math.random() * 6);
 
     // Make a table of celeb names
     const celebs = {
@@ -52,19 +38,17 @@ module.exports = {
 
     // Get a random celeb
     let celeb = celebs[Math.floor(Math.random() * 13)];
-    // Get a random amount of money
-    let Money = Math.floor(Math.random() * 9);
+    console.log(`Celeb Chosen: ${celeb}`);
 
     let Message = "";
-
     // Make a table of messages the celeb can say
     const messages = {
       Yes: {
-        1: `Here's: ${Money} coins`,
-        2: `Take this: ${Money} coins`,
-        3: `I'll give you some, here you go: ${Money} coins`,
-        4: `I'm feeling generous today, take this: ${Money} coins`,
-        5: `Ugh, fine, take this money: ${Money} coins`,
+        1: `Here's: ${randomMoney.toString()} coins`,
+        2: `Take this: ${randomMoney.toString()} coins`,
+        3: `I'll give you some, here you go: ${randomMoney.toString()} coins`,
+        4: `I'm feeling generous today, take this: ${randomMoney.toString()} coins`,
+        5: `Ugh, fine, take this money: ${randomMoney.toString()} coins`,
       },
       No: {
         1: "No",
@@ -77,18 +61,23 @@ module.exports = {
 
     // Is the beg successful? (45% chance of failing)
     let Success = Math.floor(Math.random() * 100);
-    if (Success <= 45) {
+    if (Success <= 49.9) {
       // Get a random message from the "No" table
-      Message = messages["No"][Math.floor(Math.random() * 5)];
+      Message = messages["No"][Math.floor(Math.random() * 5) + 1];
     } else {
       // Get a random message from the "Yes" table
-      Message = messages["Yes"][Math.floor(Math.random() * 5)];
+      Message = messages["Yes"][Math.floor(Math.random() * 5) + 1];
     }
 
     // If the beg was successful, add the money to the user's balance
     if (Success >= 45) {
-      Profile.updateOne({ Balance: Bal + Money });
-
+      await Profile.updateOne({ Balance: Bal + randomMoney }).then(
+        console.log(
+          `4{interaction.user.username} now has ${await client.checkBalance(
+            interaction.user
+          )}`
+        )
+      );
       // Send the message
       interaction.reply({
         content: `${celeb}: ${Message}`,
@@ -103,16 +92,18 @@ module.exports = {
     // Console logs
     if (Success >= 45) {
       console.log(
-        `${interaction.user.tag} successfully begged for ${Money} coins from ${celeb}`
+        `${
+          interaction.user.tag
+        } successfully begged for ${randomMoney.toString()} coins from ${celeb}`
       );
       console.log(Success);
     }
 
-    // Log the command usage
-    client.channels.cache
-      .get("1013569553353150556")
-      .send(
-        `${interaction.user.tag} used the beg command in <#${interaction.channel.id}>`
-      );
+    client.commandDone(
+      interaction.user,
+      "beg",
+      channel,
+      `Begged for ${randomMoney.toString()} coins from ${celeb}`
+    );
   },
 };

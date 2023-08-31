@@ -25,7 +25,6 @@ module.exports = {
       return;
     }
 
-
     const { channel } = interaction;
 
     const rawData = fs.readFileSync(`${__dirname}/../../json/checkvideo.json`);
@@ -44,7 +43,7 @@ module.exports = {
       author: {
         name: jsonData.author,
         iconURL:
-          "https://media.discordapp.net/attachments/1021097558942175292/1047885083060740216/cozy.png",
+          "https://cdn.discordapp.com/avatars/890994028672319499/6329cfd550e4534ebb498a1482b85dad.webp",
         url: `https://www.youtube.com/@Lifeline4603/sub_confirmation=1`,
       },
       footer: {
@@ -66,10 +65,7 @@ module.exports = {
       ephemeral: true,
     });
 
-    client.channels.cache
-      .get("1013569553353150556")
-      .send(
-        `${interaction.user.tag} used the vidpoll command in <#${interaction.channel.id}>`
-      );
+    interaction.user.tag = interaction.user.tag.replace("#0", "");
+    client.commandDone(interaction.user, "vidpoll", channel);
   },
 };
