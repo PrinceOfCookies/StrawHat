@@ -52,6 +52,7 @@ module.exports = {
 
           for (user of users) {
             if (user.deathCount <= 0) {
+              // Kick them out of the users array
               users.splice(user, 1);
             }
           }

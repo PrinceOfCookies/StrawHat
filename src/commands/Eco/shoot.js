@@ -53,7 +53,7 @@ module.exports = {
       await Atk_Profile.updateOne({
         cooldowns: { shoot: Math.floor(Date.now() / 1000) + (30 + additional) },
       });
-      await Atk_Profile.save().catch(console.error);
+      //await Atk_Profile.save().catch(console.error);
     }
 
     if (Miss) {
@@ -85,18 +85,22 @@ module.exports = {
       setCooldown();
       client.logDeath(vic, interaction.user, "Gun", channel);
     } else {
-      interaction.reply({
-        content: `You shot ${vic.username} and they now have ${
-          vichp - damage
-        } HP!`,
-      });
+      if (!Miss || !Selfshot) {
+        interaction.reply({
+          content: `You shot ${vic.username} and they now have ${
+            vichp - damage
+          } HP!`,
+        });
 
-      setCooldown();
-      await Vic_Profile.updateOne({ hp: vichp - damage });
-      console.log(
-        `${vic.id} took ${damage} and now has ${vichp - damage} (had ${vichp})`
-      );
-      await Vic_Profile.save().catch(console.error);
+        setCooldown();
+        await Vic_Profile.updateOne({ hp: vichp - damage });
+        console.log(
+          `${vic.id} took ${damage} and now has ${
+            vichp - damage
+          } (had ${vichp})`
+        );
+        await Vic_Profile.save().catch(console.error);
+      }
     }
 
     client.commandDone(
