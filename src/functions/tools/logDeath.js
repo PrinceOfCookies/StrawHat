@@ -1,6 +1,3 @@
-const User = require(`../../schemas/users`);
-const mongoose = require("mongoose");
-
 function randomID(len) {
   let text = "";
   let possible =
@@ -57,8 +54,8 @@ module.exports = (client) => {
       kills: AtkKills,
     });
 
-    await Vic_Profile.save().catch(console.error);
-    await Atk_Profile.save().catch(console.error);
+    //await Vic_Profile.save().catch(console.error);
+    //await Atk_Profile.save().catch(console.error);
 
     let deathCount = Vic_Profile.deaths.length;
     let killCount = Atk_Profile.kills.length;
