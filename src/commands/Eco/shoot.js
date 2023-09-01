@@ -43,7 +43,7 @@ module.exports = {
     // Check if the attack is on cooldown for shoot
     if (Atk_Profile.cooldowns.shoot > Math.floor(Date.now() / 1000)) {
       interaction.reply({
-        content: `You are on cooldown for shoot! Please wait <t:${Atk_Profile.cooldowns.shoot}:R> seconds!`,
+        content: `You are on cooldown for shoot! You can shoot again <t:${Atk_Profile.cooldowns.shoot}:R>!`,
       });
       return;
     }

@@ -74,11 +74,6 @@ module.exports = {
           inline: false,
         },
         {
-          name: "CPU Usage",
-          value: "Unknown",
-          inline: false,
-        },
-        {
           name: "💻 OS",
           value: `${os.platform()} ${os.arch()}`,
           inline: false,
