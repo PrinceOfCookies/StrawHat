@@ -48,19 +48,32 @@ module.exports = {
     let Atk_Profile = await client.checkProfile(atk);
     if (Atk_Profile.BotBanned) return end;
 
-    function setCooldown(Type, additional) {
+    async function setCooldown(Type, additional) {
       additional = additional >= 0 ? additional : 0;
+      let stabCD = ""
+      let begCD = ""
+      let shootCD = ""
 
       if (Type == "shoot") {
-        Atk_Profile.updateOne({
+        stabCd = Atk_Profile.cooldowns.stab
+        begCD = Atk_Profile.cooldowns.beg
+        shootCD = Math.floor(Date.now() / 1000) + (30 + additional)
+        await Atk_Profile.updateOne({
           cooldowns: {
-            shoot: Math.floor(Date.now() / 1000) + (30 + additional),
+            shoot: shootCD,
+            stab: stabCD,
+            beg: begCD,
           },
         });
       } else if (Type == "stab") {
-        Atk_Profile.updateOne({
+        stabCD = Math.floor(Date.now() / 1000) + (20 + additional)
+        begCD = Atk_Profile.cooldowns.beg
+        shootCD = Atk_Profile.cooldowns.shoot
+        await Atk_Profile.updateOne({
           cooldowns: {
-            stab: Math.floor(Date.now() / 1000) + (20 + additional),
+            shoot: shootCD,
+            stab: stabCD,
+            beg: begCD,
           },
         });
       } else {

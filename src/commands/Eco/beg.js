@@ -107,8 +107,13 @@ module.exports = {
       console.log(Success);
     }
 
+    let begCD = Math.floor(Date.now() / 1000) + 15;
+    let stabCD = Profile.cooldowns.stab;
+    let shootCD = Profile.cooldowns.shoot;
     await Profile.updateOne({ cooldowns: {
-      beg: Math.floor(Date.now() / 1000) + 15
+      shoot: shootCD,
+      stab: stabCD,
+      beg: begCD,
     }})
 
     client.commandDone(
