@@ -15,6 +15,19 @@ const userSchema = new Schema({
   cooldowns: {
     default: {
       shoot: 0,
+      stab: 0,
+      beg: 0,
+    },
+    type: Object,
+  },
+  commandsUsed: {
+    default: {
+      beg: 0,
+      attack: 0,
+      logs: 0,
+      balance: 0,
+      monkey: 0,
+      foot: 0
     },
     type: Object,
   },

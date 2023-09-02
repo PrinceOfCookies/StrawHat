@@ -15,29 +15,28 @@ module.exports = (client) => {
     let Vic_Profile = await client.checkProfile(victim);
     let Atk_Profile = await client.checkProfile(killer);
 
-    let deathID = randomID(10);
-    let killID = randomID(10);
+    let ID = randomID(10);
 
     let VicDeaths = Vic_Profile.deaths;
     let AtkKills = Atk_Profile.kills;
 
-    while (Vic_Profile.deaths.find((d) => d.id == deathID)) {
-      deathID = randomID(10);
+    while (Vic_Profile.deaths.find((d) => d.id == ID)) {
+      ID = randomID(10);
     }
 
-    while (Atk_Profile.kills.find((k) => k.id == killID)) {
-      killID = randomID(10);
+    while (Atk_Profile.kills.find((k) => k.id == ID)) {
+      ID = randomID(10);
     }
 
     let newDeath = {
-      deathID: deathID,
+      deathID: ID,
       killer: `${killer.username} (${killer.id})`,
       tod: Math.floor(Date.now() / 1000),
       weapon: weapon,
     };
 
     let newKill = {
-      killID: killID,
+      killID: ID,
       victim: `${victim.username} (${victim.id})`,
       tod: Math.floor(Date.now() / 1000),
       weapon: weapon,
@@ -54,9 +53,6 @@ module.exports = (client) => {
       kills: AtkKills,
     });
 
-    //await Vic_Profile.save().catch(console.error);
-    //await Atk_Profile.save().catch(console.error);
-
     let deathCount = Vic_Profile.deaths.length;
     let killCount = Atk_Profile.kills.length;
 
@@ -70,7 +66,7 @@ module.exports = (client) => {
     await Vic_Profile.save().catch(console.error);
     await Atk_Profile.save().catch(console.error);
     channel.send(
-      `${victim.username} was killed by ${killer.username} with ${weapon} (ID: ${deathID})`
+      `${victim.username} was killed by ${killer.username} with ${weapon} (ID: ${ID})`
     );
   };
 };

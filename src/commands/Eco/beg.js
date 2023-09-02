@@ -19,6 +19,14 @@ module.exports = {
 
     let randomMoney = Math.floor(Math.random() * 6);
 
+
+    if (Profile.cooldowns.beg > Math.floor(Date.now() / 1000)) {
+      interaction.reply({
+        content: `You can beg again <t:${Profile.cooldowns.beg}:R>`
+      })
+      return;
+    }
+
     // Make a table of celeb names
     const celebs = {
       1: "Elon Musk",
@@ -98,6 +106,10 @@ module.exports = {
       );
       console.log(Success);
     }
+
+    await Profile.updateOne({ cooldowns: {
+      beg: Math.floor(Date.now() / 1000) + 15
+    }})
 
     client.commandDone(
       interaction.user,

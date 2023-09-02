@@ -15,6 +15,16 @@ module.exports = (client) => {
         hp: 100,
         cooldowns: {
           shoot: 0,
+          stab: 0,
+          beg: 0,
+        },
+        commandsUsed: {
+          beg: 0,
+          attack: 0,
+          logs: 0,
+          balance: 0,
+          monkey: 0,
+          foot: 0,
         },
         deathCount: 0,
         deaths: [],
