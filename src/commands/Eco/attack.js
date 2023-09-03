@@ -104,7 +104,7 @@ module.exports = {
           interaction.reply({
             content: `You are on cooldown for shoot! You can shoot again <t:${Atk_Profile.cooldowns.shoot}:R>!`,
           });
-          break;
+          return;
         }
 
         if (Miss) {
@@ -171,7 +171,7 @@ module.exports = {
           interaction.reply({
             content: `You are on cooldown for stab! You can stab again <t:${Atk_Profile.cooldowns.stab}:R>!`,
           });
-          break;
+          return;
         }
 
         if (Miss) {
