@@ -45,7 +45,7 @@ module.exports = {
     };
 
     // Get a random celeb
-    let celeb = celebs[Math.floor(Math.random() * 13)];
+    let celeb = celebs[Math.floor(Math.random() * 13) + 1];
     console.log(`Celeb Chosen: ${celeb}`);
 
     let Message = "";
@@ -107,14 +107,7 @@ module.exports = {
       console.log(Success);
     }
 
-    let begCD = Math.floor(Date.now() / 1000) + 15;
-    let stabCD = Profile.cooldowns.stab;
-    let shootCD = Profile.cooldowns.shoot;
-    await Profile.updateOne({ cooldowns: {
-      shoot: shootCD,
-      stab: stabCD,
-      beg: begCD,
-    }})
+    client.setCooldown(interaction.user, "beg", 0, "src/commands/Eco/beg.js", 110)
 
     client.commandDone(
       interaction.user,

@@ -25,6 +25,17 @@ module.exports = {
             .setDescription("Who do you want to stab?")
             .setRequired(true)
         )
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("slap")
+        .setDescription("Slap someone")
+        .addUserOption((option) =>
+          option
+            .setName("target")
+            .setDescription("Who do you want to slap?")
+            .setRequired(true)
+        )
     ),
   async execute(interaction, client) {
     let { channel, options } = interaction;
@@ -47,39 +58,6 @@ module.exports = {
     let atk = interaction.user;
     let Atk_Profile = await client.checkProfile(atk);
     if (Atk_Profile.BotBanned) return end;
-
-    async function setCooldown(Type, additional) {
-      additional = additional >= 0 ? additional : 0;
-      let stabCD = ""
-      let begCD = ""
-      let shootCD = ""
-
-      if (Type == "shoot") {
-        stabCd = Atk_Profile.cooldowns.stab
-        begCD = Atk_Profile.cooldowns.beg
-        shootCD = Math.floor(Date.now() / 1000) + (30 + additional)
-        await Atk_Profile.updateOne({
-          cooldowns: {
-            shoot: shootCD,
-            stab: stabCD,
-            beg: begCD,
-          },
-        });
-      } else if (Type == "stab") {
-        stabCD = Math.floor(Date.now() / 1000) + (20 + additional)
-        begCD = Atk_Profile.cooldowns.beg
-        shootCD = Atk_Profile.cooldowns.shoot
-        await Atk_Profile.updateOne({
-          cooldowns: {
-            shoot: shootCD,
-            stab: stabCD,
-            beg: begCD,
-          },
-        });
-      } else {
-        console.error(`Invalid type: ${Type}`);
-      }
-    }
 
     if (VicLastDeath + 300 > Math.floor(Date.now() / 1000)) {
       interaction.reply({
@@ -113,7 +91,7 @@ module.exports = {
           });
 
           // Put them on cooldown, but with an additional 5 seconds for missing
-          setCooldown("shoot", 5);
+          client.setCooldown(interaction.user, "shoot", 5, "src/commands/Eco/attack.js", 94);
           break;
         }
 
@@ -123,7 +101,7 @@ module.exports = {
           });
 
           // Put them on cooldown, but with an additional 10 seconds for shooting themselves
-          setCooldown("shoot", 10);
+          client.setCooldown(interaction.user, "shoot", 30, "src/commands/Eco/attack.js", 104);
           // If you shoot yourself, its always in the head.. youre dead
           client.logDeath(interaction.user, interaction.user, "Gun", channel);
           break;
@@ -135,7 +113,7 @@ module.exports = {
             ephemeral: true,
           });
 
-          setCooldown("shoot");
+          client.setCooldown(interaction.user, "shoot", 0,  "src/commands/Eco/attack.js", 116);
           client.logDeath(vic, interaction.user, "Gun", channel);
           break;
         } else {
@@ -146,7 +124,7 @@ module.exports = {
               } HP!`,
             });
 
-            setCooldown("shoot");
+            client.setCooldown(interaction.user, "shoot", 0,  "src/commands/Eco/attack.js", 127);
             await Vic_Profile.updateOne({ hp: vichp - damage });
             console.log(
               `${vic.id} took ${damage} and now has ${
@@ -180,7 +158,7 @@ module.exports = {
           });
 
           // Put them on cooldown, but with an additional 5 seconds for missing
-          setCooldown("stab", 5);
+          client.setCooldown(interaction.user, "stab", 5, "src/commands/Eco/attack.js", 161);
           break;
         }
 
@@ -190,7 +168,7 @@ module.exports = {
           });
 
           // You get an extra 15 seconds for stabbing yourself..
-          setCooldown("stab", 15);
+          client.setCooldown(interaction.user, "stab", 15, "src/commands/Eco/attack.js", 171)
           // You stab yourself in the heart
           client.logDeath(interaction.user, interaction.user, "Knife", channel);
           break;
@@ -202,7 +180,7 @@ module.exports = {
             ephemeral: true,
           });
 
-          setCooldown("stab");
+          client.setCooldown(interaction.user, "stab", 0, "src/commands/Eco/attack.js", 183)
           client.logDeath(vic, interaction.user, "Knife", channel);
         } else {
           if (!Miss && !StabSelf) {
@@ -212,7 +190,7 @@ module.exports = {
               } HP!`,
             });
 
-            setCooldown("stab");
+            client.setCooldown(interaction.user, "stab", 0, "src/commands/Eco/attack.js", 193)
             await Vic_Profile.updateOne({ hp: vichp - damage });
             console.log(
               `${vic.id} took ${damage} and now has ${
@@ -223,6 +201,54 @@ module.exports = {
           }
         }
         break;
+      case "slap": 
+        damage = 1
+        Miss = chance < 3 && chance > 1 ? true : false;
+        ded = vichp - damage <= 0 ? true : false;
+        Alive = ded ? "Dead" : "Alive";
+        Hit = Miss ? "Miss" : "Hit";
+        
+        if (Miss) {
+          interaction.reply({
+            content: `You missed your slap! (L)`,
+          });
+          break;
+        }
+
+        if (ded && !Miss) {
+          interaction.reply({
+            content: `You slapped ${vic.username} and killed them!`,
+            ephemeral: true,
+          });
+
+          client.logDeath(vic, interaction.user, "Hand", channel);
+          break;
+        } else {
+          if (!Miss) {
+            interaction.reply({
+              content: `You slapped ${vic.username} and they now have ${
+                vichp - damage
+              } HP!`,
+            });
+
+            await Vic_Profile.updateOne({ hp: vichp - damage });
+            console.log(
+              `${vic.id} took ${damage} and now has ${
+                vichp - damage
+              } (had ${vichp})`
+            );
+
+            break;
+          }
+        }
+        break;
+    }
+
+    client.setCooldown(interaction.user, "attack", 0, "src/commands/Eco/attack.js", 244)
+    let VDID = ""; // Victim Death ID
+
+    if (Alive == "Dead") {
+      VDID = Vic_Profile.deaths[Vic_Profile.deaths.length - 1].ID;
     }
 
     client.commandDone(
@@ -231,7 +257,7 @@ module.exports = {
       channel,
       `${vic.username} (${vic.id}) | ${Alive} (${Hit}) (${
         vichp - damage
-      } HP) (${type})`
+      } HP) (${type}) (${VDID})`
     );
   },
 };

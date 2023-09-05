@@ -29,14 +29,14 @@ module.exports = (client) => {
     }
 
     let newDeath = {
-      deathID: ID,
+      ID: ID,
       killer: `${killer.username} (${killer.id})`,
       tod: Math.floor(Date.now() / 1000),
       weapon: weapon,
     };
 
     let newKill = {
-      killID: ID,
+      ID: ID,
       victim: `${victim.username} (${victim.id})`,
       tod: Math.floor(Date.now() / 1000),
       weapon: weapon,

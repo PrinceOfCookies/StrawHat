@@ -6,13 +6,15 @@
 
 require("dotenv").config();
 
-const { TOKEN1, databaseToken } = process.env;
+const { TOKEN1, databaseToken, CrashLogs } = process.env;
 const { connect } = require("mongoose");
-const { Client, Collection, GatewayIntentBits } = require("discord.js");
+const { Client, Collection, GatewayIntentBits, EmbedBuilder, WebhookClient, version } = require("discord.js");
+const chalk = require("chalk");
+const { inspect } = require("util");
 const fs = require("fs");
 
 // Get current unix timestamp
-const startTime = Math.floor(Date.now() / 1000);
+const startTime = Math.floor(Date.now());
 
 const client = new Client({
   intents: [
@@ -40,12 +42,34 @@ for (const folder of functionFolders) {
 client.handleEvents();
 client.handleCommands();
 client.handleComponents();
-client.channelInfo();
 
 client.login(TOKEN1);
 (async () => {
   // Print how long it took to login
-  console.log(`Logged in after ${(Math.floor(Date.now() / 1000) - startTime)} seconds.`);
+  console.log(`Logged in after ${chalk.yellow(Math.floor(Date.now() - startTime))}ms.`);
   await connect(databaseToken).catch(console.error);
-  console.log(`Connected to database after ${(Math.floor(Date.now() / 1000) - startTime)} seconds.`);
+  console.log(`Connected to database after ${chalk.yellow(Math.floor(Date.now() - startTime))}ms.`);
 })();
+
+let webhook = new WebhookClient({
+  url: CrashLogs,
+});
+
+let embed = new EmbedBuilder()
+  .setColor("ff0000")
+  
+process.on("uncaughtException", (err) => {
+  console.error(err);
+  
+  embed
+    .setTitle("Uncaught Exception")
+    .setDescription(`\`\`\`js\n${inspect(err, { depth: 0 }).slice(0, 1000)}\`\`\``)
+    .setTimestamp()
+    .setFooter({
+      text: `DJS Version: ${version}`
+    });
+
+  webhook.send({ embeds: [embed] });
+});
+
+require("./functions/handlers/handleCrashes")(client);
