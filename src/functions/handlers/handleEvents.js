@@ -2,7 +2,7 @@ const fs = require("fs");
 const { connection } = require("mongoose");
 
 module.exports = (client) => {
-  client.handleEvents = async () => {
+  client.handleEvents = async (con) => {
     const eventFolders = fs.readdirSync(`./src/events`);
     for (const folder of eventFolders) {
       const eventFiles = fs
@@ -34,6 +34,19 @@ module.exports = (client) => {
               connection.on(event.name, (...args) =>
                 event.execute(...args, client)
               );
+          }
+          break;
+
+        case "mysql": // Add a new case for MySQL events
+          if (!con) con = console.error("No MySQL connection provided.");
+          for (const file of eventFiles) {
+            const event = require(`../../events/${folder}/${file}`);
+            // Assuming you have a MySQL connection already established
+            // Replace `mysqlConnection` with your actual MySQL connection
+            if (event.once)
+              con.once(event.name, (...args) => event.execute(...args, client));
+            else
+              con.on(event.name, (...args) => event.execute(...args, client));
           }
           break;
 

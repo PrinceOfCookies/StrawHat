@@ -6,15 +6,44 @@
 
 require("dotenv").config();
 
-const { TOKEN1, databaseToken, CrashLogs } = process.env;
+const {
+  TOKEN1,
+  databaseToken,
+  CrashLogs,
+  mysqlhost,
+  mysqluser,
+  mysqlpassword,
+} = process.env;
 const { connect } = require("mongoose");
-const { Client, Collection, GatewayIntentBits, EmbedBuilder, WebhookClient, version } = require("discord.js");
+const {
+  Client,
+  Collection,
+  GatewayIntentBits,
+  EmbedBuilder,
+  WebhookClient,
+  version,
+} = require("discord.js");
 const chalk = require("chalk");
-const { inspect } = require("util");
+// const { inspect } = require("util");
 const fs = require("fs");
+const mysql = require("mysql");
 
 // Get current unix timestamp
-const startTime = Math.floor(Date.now());
+const mysqlStart = Math.floor(Date.now());
+
+// Create a MySQL connection
+const mysqlConnection = mysql.createConnection({
+  host: mysqlhost,
+  user: mysqluser,
+  password: mysqlpassword,
+  database: "s1288_Threads_and_Such",
+});
+const mysqlEnd = Math.floor(Date.now());
+console.log(
+  `Took ${chalk.yellow(
+    Math.floor(mysqlEnd - mysqlStart)
+  )}ms to create MySQL connection.`
+);
 
 const client = new Client({
   intents: [
@@ -35,41 +64,73 @@ for (const folder of functionFolders) {
   const functionFiles = fs
     .readdirSync(`./src/functions/${folder}`)
     .filter((file) => file.endsWith(".js"));
-  for (const file of functionFiles)
+  for (const file of functionFiles) {
     require(`./functions/${folder}/${file}`)(client);
+  }
 }
 
-client.handleEvents();
+client.handleEvents(mysqlConnection);
 client.handleCommands();
 client.handleComponents();
 
+const startTime = Math.floor(Date.now());
 client.login(TOKEN1);
 (async () => {
+  const endTime = Math.floor(Date.now());
   // Print how long it took to login
-  console.log(`Logged in after ${chalk.yellow(Math.floor(Date.now() - startTime))}ms.`);
+  console.log(
+    `Took ${chalk.yellow(Math.floor(endTime - startTime))}ms to login.`
+  );
+  // Connect to the database
+  const dbStart = Math.floor(Date.now());
   await connect(databaseToken).catch(console.error);
-  console.log(`Connected to database after ${chalk.yellow(Math.floor(Date.now() - startTime))}ms.`);
+  const dbEnd = Math.floor(Date.now());
+  console.log(
+    `Took ${chalk.yellow(
+      Math.floor(dbEnd - dbStart)
+    )}ms to connect to the database.`
+  );
+
+  // Get the TOTAL time it took to start the bot
+  const totalEnd = Math.floor(Date.now());
+  console.log(
+    `Took ${chalk.yellow(
+      Math.floor(totalEnd - mysqlStart)
+    )}ms to start the bot.`
+  );
 })();
 
-let webhook = new WebhookClient({
-  url: CrashLogs,
-});
+// let webhook = new WebhookClient({
+//   url: CrashLogs,
+// });
 
-let embed = new EmbedBuilder()
-  .setColor("ff0000")
-  
-process.on("uncaughtException", (err) => {
-  console.error(err);
-  
-  embed
-    .setTitle("Uncaught Exception")
-    .setDescription(`\`\`\`js\n${inspect(err, { depth: 0 }).slice(0, 1000)}\`\`\``)
-    .setTimestamp()
-    .setFooter({
-      text: `DJS Version: ${version}`
-    });
+// let embed = new EmbedBuilder().setColor("ff0000");
 
-  webhook.send({ embeds: [embed] });
-});
+// process.on("uncaughtException", (err) => {
+//   console.error(err);
+
+//   embed
+//     .setTitle("Uncaught Exception")
+//     .setDescription(
+//       `\`\`\`js\n${inspect(err, { depth: 0 }).slice(0, 1000)}\`\`\``
+//     )
+//     .setTimestamp()
+//     .setFooter({
+//       text: `DJS Version: ${version}`,
+//     });
+
+//   webhook.send({ embeds: [embed] });
+// });
 
 require("./functions/handlers/handleCrashes")(client);
+
+// Run the checkForums function every 10 seconds
+// setInterval(() => {
+//   let sTime = Math.floor(Date.now());
+//   client.cfbb();
+//   console.log(
+//     `Finished checking forums after ${chalk.yellow(
+//       Math.floor(Date.now() - sTime)
+//     )}ms.`
+//   );
+// }, 10000);
