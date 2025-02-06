@@ -6,7 +6,7 @@
   "dependencies": {
     "@discordjs/rest": "^1.2.0",
     "@guildedjs/guilded.js": "^2.3.1-selfbot",
-    "axios": "^1.2.2",
+    "axios": "^1.6.0",
     "chalk": "^4.1.2",
     "cheerio": "^1.0.0-rc.12",
     "cls": "^0.1.5",
